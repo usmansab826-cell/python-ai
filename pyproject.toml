@@ -4,4 +4,7 @@ version = "0.1.0"
 description = "Python for AI"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "langchain>=1.4.6",
+    "langchain-ollama>=1.1.0",
+]
