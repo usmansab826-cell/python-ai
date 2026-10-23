@@ -2,7 +2,7 @@
 
 print("My AI Dev Toolkit")
 print("-----------------")
-print("uv: 0.12.11")
+print("uv: 0.13.1")
 print("Python: 3.13.15")
 print("Editor: VS Code 1.141.2")
 print("Git: 2.55.0")
