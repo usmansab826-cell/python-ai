@@ -13,3 +13,4 @@ wheels/
 code/chat_history.json
 code/errors.log
 code/orders.json
+code/agent_orders.jsonl
