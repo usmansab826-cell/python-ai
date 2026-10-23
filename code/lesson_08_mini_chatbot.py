@@ -66,3 +66,4 @@ while True:
 print("=" * 40)
 print(f"Chat summary: {count} messages, {unanswered} unanswered.")
 print(f"Complaints received: {complaints}")
+
