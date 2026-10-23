@@ -1,0 +1,11 @@
+{
+  "name": "Sweet Crumbs",
+  "city": "Lahore",
+  "hours": "9 am to 10 pm",
+  "delivery": "Free delivery over 3,000 PKR",
+  "prices": {
+    "chocolate cake": 1500,
+    "cupcake": 250,
+    "brownie": 300
+  }
+}

@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Private chatbot data
+code/chat_history.json
+code/errors.log

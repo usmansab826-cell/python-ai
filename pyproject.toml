@@ -5,6 +5,7 @@ description = "Python for AI"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "httpx>=0.28.1",
     "langchain>=1.4.6",
     "langchain-ollama>=1.1.0",
 ]
