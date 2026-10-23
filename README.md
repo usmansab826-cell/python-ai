@@ -45,6 +45,9 @@ A small-business tool that turns business details into three ready-to-use AI
 prompts. See [the project run screenshot](docs/project-m1-run.png) and
 [project results](docs/project-m1-results.md).
 
+**Who would pay for this:** Small-business owners who want useful AI prompts
+without having to learn prompt writing.
+
 ### Module 2 — Core Python for LLM apps
 
 | Lesson | Topic / assignment | Run |
