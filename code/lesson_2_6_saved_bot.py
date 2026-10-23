@@ -57,6 +57,7 @@ try:
     ):
         print("History file has an invalid format. Starting a fresh chat.")
     else:
+        # Why: Only user and assistant messages are saved; system rules stay in code.
         messages.extend(saved_messages[-MAX_MESSAGES:])
         print(f"Loaded {len(messages) - 1} old messages.")
 except FileNotFoundError:
@@ -83,6 +84,7 @@ while True:
     elif command == "/reset":
         messages = [system]
         with HISTORY_FILE.open("w", encoding="utf-8") as history_file:
+            # Why: UTF-8 preserves Urdu and other non-ASCII customer messages.
             json.dump([], history_file, indent=2, ensure_ascii=False)
         print("Bot: Memory cleared.")
         continue
@@ -94,6 +96,7 @@ while True:
     except httpx.ConnectError:
         print("Bot: I am offline right now. Please open the Ollama app and try again.")
         messages.pop()
+        # Why: A log helps diagnose an unavailable local Ollama service later.
         with LOG_FILE.open("a", encoding="utf-8") as log_file:
             log_file.write("ConnectError: Ollama not running\n")
         continue
@@ -111,4 +114,5 @@ while True:
         del messages[1:3]
 
     with HISTORY_FILE.open("w", encoding="utf-8") as history_file:
+        # Why: UTF-8 keeps multilingual conversation history readable on disk.
         json.dump(messages[1:], history_file, indent=2, ensure_ascii=False)

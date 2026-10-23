@@ -20,6 +20,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 writer = init_chat_model(
     MODEL,
     model_provider="ollama",
+    # Why: Creative writing benefits from more varied wording.
     temperature=0.7,
 )
 
@@ -28,6 +29,7 @@ total_tokens = 0
 total_seconds = 0.0
 
 for name, price in products.items():
+    # Why: Products without a valid price should not be advertised for sale.
     if price <= 0:
         print(f"Skipping {name} (no price)")
         continue
@@ -37,6 +39,7 @@ for name, price in products.items():
         f"'{name}' at {price} PKR for a Lahore bakery menu. "
         "Do not add a question, heading, or extra sentence."
     )
+    # Why: One model instance is reused for the whole batch to avoid repeated setup.
     response = writer.invoke([{"role": "user", "content": prompt}])
     description = re.split(
         r"(?<=[.!?])\s+", response.text.strip().replace("\n", " "), maxsplit=1

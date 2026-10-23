@@ -14,6 +14,7 @@ level = input("What is your level (beginner, intermediate, or advanced)? ").stri
 tutor = init_chat_model(
     MODEL,
     model_provider="ollama",
+    # Why: A low temperature keeps factual tutoring answers more consistent.
     temperature=0.2,
 )
 

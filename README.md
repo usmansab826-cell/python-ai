@@ -42,11 +42,18 @@ versions. The `.venv/` directory is local and ignored by Git.
 `uv run code/project_m1_prompt_kit.py`
 
 A small-business tool that turns business details into three ready-to-use AI
-prompts. See [the project run screenshot](docs/project-m1-run.png) and
-[project results](docs/project-m1-results.md).
+prompts. See the [project results](docs/project-m1-results.md).
 
 **Who would pay for this:** Small-business owners who want useful AI prompts
 without having to learn prompt writing.
+
+**Module 1 final project — AI Front Desk:**
+
+`uv run code/project_m1_front_desk.py`
+
+Answers routine questions from verified bakery facts and routes complaints or
+unsupported questions to staff. See the [design](docs/project-m1-front-desk-design.md)
+and [test notes](docs/project-m1-front-desk-results.md).
 
 ### Module 2 — Core Python for LLM apps
 
@@ -58,8 +65,24 @@ without having to learn prompt writing.
 | 2.4 | Loops — Batch Product Writer | `uv run code/lesson_2_4_batch_writer.py` |
 | 2.5 | Functions — AI Skills Toolkit | `uv run code/lesson_2_5_ai_skills.py` |
 | 2.6 | Files, JSON, and errors — Saved Bot | `uv run code/lesson_2_6_saved_bot.py` |
-| 2.7 | Structured output — Order Extractor | `uv run code/lesson_2_7_extractor.py` |
-| 2.8 | Tools and agent loop — First Agent | `uv run code/lesson_2_8_first_agent.py` |
+| 2.7 | Structured output — Order Extractor | `uv run code/lesson_2_7_extractor.py` — see [Hallucination Hunt](docs/hallucination-hunt.md) |
+| 2.8 | Tools and agent loop — First Agent | `uv run code/lesson_2_8_first_agent.py` — see [agent observation](docs/lesson-2-8-agent-observation.md) |
+
+**Module 2 Checkpoint 1 project — AI Content Studio:**
+
+`uv run code/project_m2_content_studio.py`
+
+Creates short social and messaging drafts from a business brief. See the
+[design](docs/project-m2-content-studio-design.md) and
+[test notes](docs/project-m2-content-studio-results.md).
+
+**Module 2 final project — AI Business Assistant:**
+
+`uv run code/project_m2_business_assistant.py`
+
+Uses tools to look up verified business information, check prices, and place
+orders only after confirmation. See the [design](docs/project-m2-business-assistant-design.md)
+and [test notes](docs/project-m2-business-assistant-results.md).
 
 The AI lessons use local Ollama models. Start Ollama and download the model
 specified in each script before running it.

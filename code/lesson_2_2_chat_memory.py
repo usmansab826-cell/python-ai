@@ -5,7 +5,7 @@ import sys
 from langchain.chat_models import init_chat_model
 
 MODEL = "gemma3:1b"
-MAX_MESSAGES = 6
+MAX_MESSAGES = 8
 SYSTEM = (
     "You are a friendly, patient personal tutor. Answer clearly and simply. "
     "Use the conversation history to remember details the learner has shared."
@@ -21,6 +21,13 @@ llm = init_chat_model(
 
 messages = [{"role": "system", "content": SYSTEM}]
 
+
+def trim_history(history: list[dict[str, str]]) -> None:
+    """Keep the system instructions and at most MAX_MESSAGES recent messages."""
+    while len(history) > MAX_MESSAGES + 1:
+        del history[1]
+
+
 print("Personal Tutor: Ask me anything. Commands: /reset, /count, bye")
 
 while True:
@@ -34,24 +41,20 @@ while True:
         messages = [messages[0]]
         print("Tutor: Memory cleared.")
     elif command == "/count":
-        conversation = messages[1:]
-        turns = sum(message["role"] == "user" for message in conversation)
-        print(
-            f"Tutor: Memory has {turns} turns "
-            f"({len(conversation)} messages, system message not included)."
-        )
+        print(f"Tutor: Memory has {len(messages)} messages, including system instructions.")
     elif text == "":
         print("Tutor: Please type a question.")
     else:
         messages.append({"role": "user", "content": text})
 
-        # Remove complete old user/assistant pairs, keeping the system message.
-        while len(messages) > MAX_MESSAGES + 1:
-            del messages[1:3]
+        # Why: A bounded history controls token use while retaining the tutoring rules.
+        # Keep the system message and the newest conversation messages.
+        trim_history(messages)
 
         response = llm.invoke(messages)
         answer = response.text
         messages.append({"role": "assistant", "content": answer})
+        trim_history(messages)
 
         print(f"Tutor: {answer}")
         print(

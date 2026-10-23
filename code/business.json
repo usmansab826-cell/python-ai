@@ -1,0 +1,12 @@
+{
+  "name": "Sweet Crumbs",
+  "city": "Lahore",
+  "address": "Main Boulevard, Lahore",
+  "hours": "9 am to 10 pm every day",
+  "delivery": "Free delivery on orders over 3,000 PKR",
+  "menu": {
+    "chocolate cake": 1500,
+    "cupcake": 250,
+    "brownie": 300
+  }
+}

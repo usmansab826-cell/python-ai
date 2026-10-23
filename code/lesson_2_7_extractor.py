@@ -122,6 +122,15 @@ def extracted_text(value: str) -> str:
     return cleaned
 
 
+def summarize_orders(orders: list[dict]) -> tuple[int, int, int]:
+    """Return order count, combined total, and number of human-review checks."""
+    return (
+        len(orders),
+        sum(order["total"] for order in orders),
+        sum(len(order["problems"]) for order in orders),
+    )
+
+
 sys.stdout.reconfigure(encoding="utf-8")
 
 extractor = init_chat_model(
@@ -173,6 +182,7 @@ for message in MESSAGES_IN:
     checked_items = []
 
     for item in order["items"]:
+        # Why: Model-extracted fields are untrusted until checked against the menu.
         if (
             not isinstance(item, dict)
             or not isinstance(item.get("name"), str)
@@ -188,6 +198,7 @@ for message in MESSAGES_IN:
             problems.append(f"'{item['name']}' is not on the menu")
             continue
         if not source_mentions_item(message, name):
+            # Why: Matching the source prevents the model from adding an unasked-for item.
             problems.append(f"'{item['name']}' is not mentioned in the message (invented?)")
             continue
 
@@ -230,6 +241,11 @@ for message in MESSAGES_IN:
         print(f"  CHECK: {problem}")
 
 with ORDERS_FILE.open("w", encoding="utf-8") as orders_file:
+    # Why: UTF-8 preserves customer names and addresses in multilingual orders.
     json.dump(saved, orders_file, indent=2, ensure_ascii=False)
 
-print(f"\nSaved {len(saved)} checked orders to {ORDERS_FILE.name}")
+order_count, grand_total, check_count = summarize_orders(saved)
+print(f"\nOrders found: {order_count}")
+print(f"Combined total: {grand_total} PKR")
+print(f"CHECK items: {check_count}")
+print(f"Saved {len(saved)} checked orders to {ORDERS_FILE.name}")

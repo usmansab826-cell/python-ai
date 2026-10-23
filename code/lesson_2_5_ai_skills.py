@@ -22,7 +22,10 @@ creative = init_chat_model(
 
 
 def estimate_tokens(text: str) -> int:
-    """Estimate English token count using about four characters per token."""
+    """Estimate English token count using about four characters per token.
+
+    Why: A quick estimate helps users understand prompt size without extra tools.
+    """
     return round(len(text) / 4)
 
 
@@ -31,7 +34,10 @@ def ask_ai(
     system: str = "You are a helpful assistant. Answer in 2 short lines.",
     creative_mode: bool = False,
 ) -> str:
-    """Send a prompt to the selected AI model and return its answer."""
+    """Send a prompt to the selected AI model and return its answer.
+
+    Why: Shared model selection and message setup keep each skill consistent.
+    """
     model = creative if creative_mode else precise
     response = model.invoke(
         [

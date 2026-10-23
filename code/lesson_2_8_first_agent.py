@@ -36,6 +36,7 @@ def load_saved_orders() -> None:
                 record = json.loads(line)
                 if isinstance(record, dict) and isinstance(record.get("id"), str):
                     ORDERS[record["id"].upper()] = "received"
+    # Why: A first run has no order log yet, so the sample statuses remain useful.
     except FileNotFoundError:
         pass
     except json.JSONDecodeError:
@@ -122,6 +123,7 @@ def place_order(item: str, quantity: int, customer: str) -> str:
         return "Please provide the customer's name before placing the order."
 
     total = PRICES[name] * quantity
+    # Why: Placing an order changes business data, so a person must approve it.
     approval = input(
         f"  [approve] {quantity} x {name} for {customer_name} = "
         f"{total} PKR. Place it? (yes/no) "
@@ -186,6 +188,7 @@ while True:
 
     messages.append({"role": "user", "content": text})
     tool_results = []
+    # Why: A step limit prevents repeated model/tool calls from looping forever.
     for step in range(MAX_STEPS):
         try:
             response = llm_with_tools.invoke(messages)

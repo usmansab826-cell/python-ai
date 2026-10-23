@@ -14,6 +14,8 @@ facts = {
     "name": "Sweet Crumbs",
     "city": "Lahore",
     "hours": "9 am to 10 pm",
+    "address": "Main Boulevard, Lahore",
+    "delivery": "Free delivery on orders over 3,000 PKR",
     "prices": {
         "chocolate cake": 1500,
         "cupcake": 250,
@@ -37,7 +39,7 @@ llm = init_chat_model(
 
 rules = (
     f"You are the assistant of {facts['name']} bakery in {facts['city']}. "
-    f"Hours: {facts['hours']}. Prices in PKR: {facts['prices']}. "
+    f"Business facts: {facts}. "
     "Only use these facts. If you do not know, say you will check with the manager. "
     "Answer in 2 short lines."
 )
@@ -60,13 +62,14 @@ while True:
         break
     elif command == "/persona":
         persona = argument.lower()
+        # Why: The default keeps an invalid persona command usable and predictable.
+        style = persona if persona in personas else "friendly"
+        selected_style = personas.get(style, personas["friendly"])
+        messages[0]["content"] = f"{rules} Your style: {selected_style}."
         if persona in personas:
-            style = persona
-            messages[0]["content"] = f"{rules} Your style: {personas[style]}."
             print(f"Bot: Style changed to {style}.")
         else:
-            choices = ", ".join(personas)
-            print(f"Bot: Choose a persona: {choices}.")
+            print(f"Bot: Unknown style; using {style}.")
     elif command == "/price":
         item = argument.lower()
         if not item:
