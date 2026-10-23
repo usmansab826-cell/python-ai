@@ -64,6 +64,11 @@ without having to learn prompt writing.
 The AI lessons use local Ollama models. Start Ollama and download the model
 specified in each script before running it.
 
+## Quick-check answer keys
+
+- [Module 1: Lessons 1.1–1.8](docs/my-answers-module-1.md)
+- [Module 2: Lessons 2.1–2.8](docs/my-answers-module-2.md)
+
 ## Repository layout
 
 ```text
